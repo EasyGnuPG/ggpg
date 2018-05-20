@@ -18,8 +18,16 @@ def app_main():
 
     progress = Gtk.ProgressBar(show_text=True)
     
-    vbox=Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
-    vbox.add(progress)
+    vbox=Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
+    vbox.pack_start(progress, True, True, 0)
+    button = Gtk.Button.new_with_label("Test")
+
+    def on_click_function(button):
+        print("Clicked")
+
+
+    button.connect("clicked", on_click_function)
+    vbox.pack_start(button, True, True, 0)
     win.add(vbox)
 
     def update_progess(i):
