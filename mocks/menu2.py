@@ -15,7 +15,7 @@ class StackWindow(Gtk.Window):
         stack = Gtk.Stack()
         stack.set_transition_type(Gtk.StackTransitionType.SLIDE_LEFT_RIGHT)
         #Change this value to make it a gradual transition
-        stack.set_transition_duration(1)
+        stack.set_transition_duration(1000)
         
         button = Gtk.Button.new_with_label("Encrypt!")
         stack.add_titled(button, "button", "Button")
