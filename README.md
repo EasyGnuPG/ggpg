@@ -40,20 +40,24 @@ Also, if you face any issues with the above setup please open an issue or feel f
 
 ### Virtual Environment
 
-Setup the virtual environment (Optional - recommended)
+Setup virtual environment (Optional - recommended)
 ```
 $ pip install virtualenv
 $ mkdir ggpg
 $ virtualenv venv
 $ cd ggpg
 $ source venv/bin/activate
+```
+Installations inside the virtual environment:
+```
 $ pip install pygobject
+$ pip install vext
 $ pip install vext.gi
-
+```
 # Running the Application
 
-```
 Clone the git repository:
+```
 $ git clone https://github.com/EasyGnuPG/ggpg.git --branch gui-devel --single-branch
 $ cd ggpg
 $ python main.py
