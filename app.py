@@ -11,25 +11,38 @@ class MainApp(Gtk.Application):
 	def __init__(self, *args, **kwargs):
 
 		super().__init__(application_id="apps.ggpg", flags=Gio.ApplicationFlags.FLAGS_NONE)
+		self.window = None
 		self.connect("startup", self.on_startup)
-		# self.connect("activate", self.on_activate)
+		self.connect("activate", self.on_activate)
 		self.connect("shutdown", self.on_shutdown)
 
-	# def run(self, argv):
+	def on_activate(self, data=None):
+		#To allow only a single instance and raise any running isntances.
+		if not self.window:
+			#The startup signal is fired when the application starts
+			#This should serve just as a fallback incase the Window wasn't initialized
+			self.on_startup(self)
 
-	# 	self.app.run(argv)
+		self.window.present()
+
+
 
 	def on_startup(self, data=None):
+		#Sets up the window and connects widgets to callback functions
 
-		window = Gtk.ApplicationWindow(application=self, title="EasyGnuPG")
-		window.set_default_size(640,480)
-		window.set_border_width(10)
-		self.add_window(window)
+		self.window = Gtk.ApplicationWindow(application=self, title="EasyGnuPG")
+		self.window.set_default_size(640,480)
+		self.window.set_border_width(10)
+		self.add_window(self.window)
 
 		window_split = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
 
-		# statusbar = Gtk.StatusBar()
-		# window_split.pack_end(statusbar, False, False, 0)
+		statusbar = Gtk.Statusbar()
+		window_split.pack_end(statusbar, False, False, 0)
+		
+		#This will be changed when writing callbacks
+		context = statusbar.get_context_id("status")
+		statusbar.push(context,"In development")
 
 		center_split = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 
@@ -44,11 +57,11 @@ class MainApp(Gtk.Application):
 		menubar = builder.get_object('menubar')
 		self.set_menubar(menubar)
 
-		window.add(window_split)
-		window.show_all()
+		self.window.add(window_split)
+		self.window.show_all()
 
 	def on_shutdown(self, data=None):
-		#Add cleanups
+		#Add cleanups like file saves, logs, errors etc
 		pass
 
 
