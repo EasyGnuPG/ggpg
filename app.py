@@ -36,7 +36,7 @@ class MainApp(Gtk.Application):
 		window_split.pack_end(center_split, False, False, 0)
 
 		builder = Gtk.Builder()
-		builder.add_from_file("./menus.xml")
+		builder.add_from_file("uifiles/menus.xml")
 		# builder.connect_signals(Handler())
 
 		appmenu = builder.get_object('appmenu')
