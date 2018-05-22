@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<interface>
+  <menu id="appmenu">
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">Preferences</attribute>
+        <attribute name="action">app.preferences</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">About</attribute>
+        <attribute name="action">app.about</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">Quit</attribute>
+        <attribute name="action">app.quit</attribute>
+        <attribute name="accel">&lt;Primary&gt;q</attribute>
+      </item>
+    </section>
+  </menu>
+  <menu id="menubar">
+    <submenu>
+      <attribute name="label">File</attribute>
+      <section>
+        <item>
+          <attribute name="label">Encrypt</attribute>
+          <attribute name="action">app.encrypt</attribute>
+        </item>
+        <item>
+          <attribute name="label">Decrypt</attribute>
+          <attribute name="action">app.decrypt</attribute>
+        </item>
+      </section>
+    </submenu>
+    <submenu>
+      <attribute name="label">Settings</attribute>
+      <section>
+        <item>
+          <attribute name="label">init</attribute>
+          <attribute name="action">app.init</attribute>
+        </item>
+      </section>
+    </submenu>
+    <submenu>
+      <attribute name="label">Keys</attribute>
+      <section>
+        <item>
+          <attribute name="label">create</attribute>
+          <attribute name="action">app.create</attribute>
+        </item>
+        <item>
+          <attribute name="label">split</attribute>
+          <attribute name="action">app.split</attribute>
+        </item>
+        <item>
+          <attribute name="label">keyserver</attribute>
+          <attribute name="action">app.keyserver</attribute>
+        </item>
+      </section>
+    </submenu>
+  </menu>
+</interface>
