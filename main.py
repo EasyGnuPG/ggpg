@@ -32,7 +32,9 @@ class MainApp(Gtk.Application):
 
 		self.window = Gtk.ApplicationWindow(application=self, title="EasyGnuPG")
 		self.window.set_default_size(640,480)
+		#TODO : Add support for widgets that need to be re-sized with the window
 		self.window.set_border_width(10)
+		self.window.connect('delete_event', self.on_delete_window)
 		self.add_window(self.window)
 
 		window_split = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
@@ -46,7 +48,29 @@ class MainApp(Gtk.Application):
 
 		center_split = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
 
-		window_split.pack_end(center_split, False, False, 0)
+		window_split.pack_end(center_split, True, True, 0)
+
+		notebook = Gtk.Notebook()
+		notebook.set_vexpand(True)
+		center_split.pack_end(notebook, True, True, 0)
+
+		page1 = Gtk.Box()
+		page1.set_vexpand(True)
+		page1.set_border_width(10)
+		page1.add(Gtk.Button.new_with_label('Open a file to Encrypt'))
+		notebook.append_page(page1, Gtk.Label('Encrypt'))
+		page2 = Gtk.Box()
+		page2.set_border_width(10)
+		page2.add(Gtk.Button.new_with_label('Open an encrypted file to decrypt'))
+		notebook.append_page(page2, Gtk.Label('Decrypt'))
+		page3 = Gtk.Box()
+		page3.set_border_width(10)
+		page3.add(Gtk.Button.new_with_label('Sign a file'))
+		notebook.append_page(page3, Gtk.Label('Signature'))
+		page4 = Gtk.Box()
+		page4.set_border_width(10)
+		page4.add(Gtk.Button.new_with_label('Verify a signed file'))
+		notebook.append_page(page4, Gtk.Label('Verify'))
 
 		builder = Gtk.Builder()
 		builder.add_from_file("uifiles/menu.xml")
@@ -63,6 +87,9 @@ class MainApp(Gtk.Application):
 	def on_shutdown(self, data=None):
 		#Add cleanups like file saves, logs, errors etc
 		pass
+
+	def on_delete_window(self, widget, data= None):
+		print(widget.get_size())
 
 
 if __name__ == '__main__':
