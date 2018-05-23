@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<interface>
+  <menu id="appmenu">
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">Preferences</attribute>
+        <attribute name="action">app.preferences</attribute>
+      </item>
+    </section>
+    <section>
+      <item>
+        <attribute name="label" translatable="yes">About</attribute>
+        <attribute name="action">app.about</attribute>
+      </item>
+      <item>
+        <attribute name="label" translatable="yes">Quit</attribute>
+        <attribute name="action">app.quit</attribute>
+        <attribute name="accel">&lt;Primary&gt;q</attribute>
+      </item>
+    </section>
+  </menu>
+  <menu id="menubar">
+    <submenu>
+      <attribute name="label">File</attribute>
+      <section>
+        <item>
+          <attribute name="label">init</attribute>
+          <attribute name="action">app.init</attribute>
+        </item>
+        <item>
+          <attribute name="label">migrate</attribute>
+          <attribute name="action">app.migrate</attribute>
+        </item>
+      </section>
+    </submenu>
+    <submenu>
+      <attribute name="label">Contacts</attribute>
+      <section>
+        <item>
+          <attribute name="label">import</attribute>
+          <attribute name="action">app.import</attribute>
+        </item>
+        <item>
+          <attribute name="label">fetch</attribute>
+          <attribute name="action">app.fetch</attribute>
+        </item>
+        <item>
+          <attribute name="label">fetch-uri</attribute>
+          <attribute name="action">app.fetch_uri</attribute>
+        </item>
+        <item>
+          <attribute name="label">search</attribute>
+          <attribute name="action">app.search</attribute>
+        </item>
+        <item>
+          <attribute name="label">download</attribute>
+          <attribute name="action">app.download</attribute>
+        </item>
+      </section>
+    </submenu>
+    <submenu>
+      <attribute name="label">Keys</attribute>
+      <section>
+        <item>
+          <attribute name="label">create</attribute>
+          <attribute name="action">app.create</attribute>
+        </item>
+        <item>
+          <attribute name="label">list</attribute>
+          <attribute name="action">app.list</attribute>
+        </item>
+      </section>
+    </submenu>
+    <submenu>
+      <attribute name="label">Settings</attribute>
+      <section>
+        <item>
+          <attribute name="label">info</attribute>
+          <attribute name="action">app.info</attribute>
+        </item>
+      </section>
+    </submenu>
+    <submenu>
+      <attribute name="label">Help</attribute>
+    </submenu>
+    <submenu>
+      <attribute name="label">About</attribute>
+    </submenu>
+  </menu>
+</interface>
