@@ -52,12 +52,11 @@ class MainApp(Gtk.Application):
 
 		notebook = Gtk.Notebook()
 		notebook.set_vexpand(True)
-		center_split.pack_end(notebook, True, True, 0)
+		center_split.pack_end(notebook, True, True, 10)
 
 		page1 = Gtk.Box()
-		page1.set_vexpand(True)
 		page1.set_border_width(10)
-		page1.add(Gtk.Button.new_with_label('Open a file to Encrypt'))
+		page1.pack_start(Gtk.Button.new_with_label('Open a file to Encrypt'), False, False, 0)
 		notebook.append_page(page1, Gtk.Label('Encrypt'))
 		page2 = Gtk.Box()
 		page2.set_border_width(10)
@@ -71,6 +70,25 @@ class MainApp(Gtk.Application):
 		page4.set_border_width(10)
 		page4.add(Gtk.Button.new_with_label('Verify a signed file'))
 		notebook.append_page(page4, Gtk.Label('Verify'))
+
+		scroll_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
+		center_split.pack_end(scroll_box, True, True, 0)
+
+		scrolled_contacts = Gtk.ScrolledWindow(hadjustment=None, vadjustment=None)
+		scrolled_contacts.set_min_content_width(self.window.get_size()[0]/4)
+		scrolled_contacts.set_max_content_width(self.window.get_size()[0]/4)
+		scrolled_contacts.set_min_content_height(self.window.get_size()[1]*0.4)
+		scrolled_contacts.set_max_content_height(self.window.get_size()[1]*0.4)
+
+		scroll_box.pack_end(scrolled_contacts, True, True, 0)
+
+		scrolled_keys = Gtk.ScrolledWindow(hadjustment=None, vadjustment=None)
+		scrolled_keys.set_min_content_width(self.window.get_size()[0]/4)
+		scrolled_keys.set_max_content_width(self.window.get_size()[0]/4)
+		scrolled_keys.set_min_content_height(self.window.get_size()[1]*0.4)
+		scrolled_keys.set_max_content_height(self.window.get_size()[1]*0.4)
+
+		scroll_box.pack_end(scrolled_keys, True, True, 0)
 
 		builder = Gtk.Builder()
 		builder.add_from_file("uifiles/menu.xml")
