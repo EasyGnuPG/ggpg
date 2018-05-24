@@ -57,21 +57,37 @@ class MainApp(Gtk.Application):
 		notebook.set_vexpand(True)
 		center_split.pack_end(notebook, True, True, 6)
 
-		page1 = Gtk.Box()
+		page1 = Gtk.HBox()
+		page1_innerbox = Gtk.VBox()
+		page1_vbox = Gtk.VBox(spacing=6)
+		page1_innerbox.set_center_widget(page1_vbox)
+		page1_vbox.pack_start(Gtk.Button.new_with_label('Open a file to Encrypt'), False, False, 0)
 		page1.set_border_width(10)
-		page1.pack_start(Gtk.Button.new_with_label('Open a file to Encrypt'), False, False, 0)
+		page1.set_center_widget(page1_innerbox)
 		notebook.append_page(page1, Gtk.Label('Encrypt'))
-		page2 = Gtk.Box()
+		page2 = Gtk.HBox()
+		page2_innerbox = Gtk.VBox()
+		page2_vbox = Gtk.VBox(spacing=6)
+		page2_innerbox.set_center_widget(page2_vbox)
+		page2_vbox.pack_start(Gtk.Button.new_with_label('Open an encrypted file to decrypt'), False, False, 0)
 		page2.set_border_width(10)
-		page2.add(Gtk.Button.new_with_label('Open an encrypted file to decrypt'))
+		page2.set_center_widget(page2_innerbox)
 		notebook.append_page(page2, Gtk.Label('Decrypt'))
-		page3 = Gtk.Box()
+		page3 = Gtk.HBox()
+		page3_innerbox = Gtk.VBox()
+		page3_vbox = Gtk.VBox(spacing=6)
+		page3_innerbox.set_center_widget(page3_vbox)
+		page3_vbox.pack_start(Gtk.Button.new_with_label('Sign a file'), False, False, 0)
 		page3.set_border_width(10)
-		page3.add(Gtk.Button.new_with_label('Sign a file'))
+		page3.set_center_widget(page3_innerbox)
 		notebook.append_page(page3, Gtk.Label('Signature'))
-		page4 = Gtk.Box()
+		page4 = Gtk.HBox()
+		page4_innerbox = Gtk.VBox()
+		page4_vbox = Gtk.VBox(spacing=6)
+		page4_innerbox.set_center_widget(page4_vbox)
+		page4_vbox.pack_start(Gtk.Button.new_with_label('Verify Signature'), False, False, 0)
 		page4.set_border_width(10)
-		page4.add(Gtk.Button.new_with_label('Verify a signed file'))
+		page4.set_center_widget(page4_innerbox)
 		notebook.append_page(page4, Gtk.Label('Verify'))
 
 		#Scroll View
@@ -84,7 +100,7 @@ class MainApp(Gtk.Application):
 		scrolled_contacts.set_min_content_height(self.window.get_size()[1]*0.4)
 		scrolled_contacts.set_max_content_height(self.window.get_size()[1]*0.4)
 
-		scroll_box.pack_end(scrolled_contacts, True, True, 0)
+		scroll_box.pack_start(scrolled_contacts, True, True, 0)
 		#TreeView for Contacts
 		contacts_view = Gtk.TreeView()
 		contacts_model = Gtk.ListStore(str)
@@ -94,6 +110,7 @@ class MainApp(Gtk.Application):
 		contact_cell = Gtk.CellRendererText()
 		contacts.pack_start(contact_cell, False)
 		contacts.add_attribute(contact_cell, "text", 0)
+		self.populate_contacts(contacts_model)
 
 		scrolled_contacts.add(contacts_view)
 
@@ -103,16 +120,17 @@ class MainApp(Gtk.Application):
 		scrolled_keys.set_min_content_height(self.window.get_size()[1]*0.4)
 		scrolled_keys.set_max_content_height(self.window.get_size()[1]*0.4)
 
-		scroll_box.pack_end(scrolled_keys, True, True, 0)
+		scroll_box.pack_start(scrolled_keys, True, True, 0)
 		#TreeView for Keys
 		keys_view = Gtk.TreeView()
 		keys_model = Gtk.ListStore(str)
-		keys_view.set_model(contacts_model)
+		keys_view.set_model(keys_model)
 		keys = Gtk.TreeViewColumn("Keys")
 		keys_view.append_column(keys)
 		key_cell = Gtk.CellRendererText()
 		keys.pack_start(key_cell, False)
 		keys.add_attribute(key_cell, "text", 0)
+		self.populate_keys(keys_model)
 
 		scrolled_keys.add(keys_view)
 
@@ -134,6 +152,19 @@ class MainApp(Gtk.Application):
 
 	def on_delete_window(self, widget, data= None):
 		print(widget.get_size())
+
+	def populate_contacts(self, model):
+		#Shift to separate package later
+		model.clear()
+		for item in range(1,11):
+			item_iter = model.append(["Contact " + str(item)])
+
+	def populate_keys(self, model):
+		#Shift to separate package later
+		model.clear()
+		for item in range(1,11):
+			item_iter = model.append(["Key " + str(item)])
+
 
 
 if __name__ == '__main__':
