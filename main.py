@@ -37,8 +37,10 @@ class MainApp(Gtk.Application):
 		self.window.connect('delete_event', self.on_delete_window)
 		self.add_window(self.window)
 
+		#Principal Container Box
 		window_split = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
 
+		#StatusBar
 		statusbar = Gtk.Statusbar()
 		window_split.pack_end(statusbar, False, False, 0)
 		
@@ -46,13 +48,14 @@ class MainApp(Gtk.Application):
 		context = statusbar.get_context_id("status")
 		statusbar.push(context,"In development")
 
-		center_split = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=10)
-
+		#Display Container
+		center_split = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=0)
 		window_split.pack_end(center_split, True, True, 0)
 
+		#Main Command Widgets
 		notebook = Gtk.Notebook()
 		notebook.set_vexpand(True)
-		center_split.pack_end(notebook, True, True, 10)
+		center_split.pack_end(notebook, True, True, 6)
 
 		page1 = Gtk.Box()
 		page1.set_border_width(10)
@@ -71,6 +74,7 @@ class MainApp(Gtk.Application):
 		page4.add(Gtk.Button.new_with_label('Verify a signed file'))
 		notebook.append_page(page4, Gtk.Label('Verify'))
 
+		#Scroll View
 		scroll_box = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=6)
 		center_split.pack_end(scroll_box, True, True, 0)
 
@@ -81,6 +85,17 @@ class MainApp(Gtk.Application):
 		scrolled_contacts.set_max_content_height(self.window.get_size()[1]*0.4)
 
 		scroll_box.pack_end(scrolled_contacts, True, True, 0)
+		#TreeView for Contacts
+		contacts_view = Gtk.TreeView()
+		contacts_model = Gtk.ListStore(str)
+		contacts_view.set_model(contacts_model)
+		contacts = Gtk.TreeViewColumn("Contacts")
+		contacts_view.append_column(contacts)
+		contact_cell = Gtk.CellRendererText()
+		contacts.pack_start(contact_cell, False)
+		contacts.add_attribute(contact_cell, "text", 0)
+
+		scrolled_contacts.add(contacts_view)
 
 		scrolled_keys = Gtk.ScrolledWindow(hadjustment=None, vadjustment=None)
 		scrolled_keys.set_min_content_width(self.window.get_size()[0]/4)
@@ -89,6 +104,17 @@ class MainApp(Gtk.Application):
 		scrolled_keys.set_max_content_height(self.window.get_size()[1]*0.4)
 
 		scroll_box.pack_end(scrolled_keys, True, True, 0)
+		#TreeView for Keys
+		keys_view = Gtk.TreeView()
+		keys_model = Gtk.ListStore(str)
+		keys_view.set_model(contacts_model)
+		keys = Gtk.TreeViewColumn("Keys")
+		keys_view.append_column(keys)
+		key_cell = Gtk.CellRendererText()
+		keys.pack_start(key_cell, False)
+		keys.add_attribute(key_cell, "text", 0)
+
+		scrolled_keys.add(keys_view)
 
 		builder = Gtk.Builder()
 		builder.add_from_file("uifiles/menu.xml")
