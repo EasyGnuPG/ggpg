@@ -61,7 +61,10 @@ class MainApp(Gtk.Application):
 		page1_innerbox = Gtk.VBox()
 		page1_vbox = Gtk.VBox(spacing=6)
 		page1_innerbox.set_center_widget(page1_vbox)
-		page1_vbox.pack_start(Gtk.Button.new_with_label('Open a file to Encrypt'), False, False, 0)
+		file_button1 = Gtk.Button("Choose File")
+		file_button1.connect("clicked", self.on_file_clicked)
+		page1_vbox.pack_start(file_button1, False, False, 0)
+		page1_vbox.pack_start(Gtk.Button.new_with_label('Encrypt File'), False, False, 0)
 		page1.set_border_width(10)
 		page1.set_center_widget(page1_innerbox)
 		notebook.append_page(page1, Gtk.Label('Encrypt'))
@@ -181,7 +184,7 @@ class MainApp(Gtk.Application):
 		if response == 200:
 			#TODO : Add function here
 			print("Renew Key Selcted")
-			dialog.destory()
+			dialog.destroy()
 		else:
 			#TODO : Add function here
 			print("Delete Key Selcted")
@@ -199,11 +202,28 @@ class MainApp(Gtk.Application):
 		if response == 200:
 			#TODO : Add function here
 			print("Renew Key Selcted")
-			dialog.destory()
+			dialog.destroy()
 		else:
 			#TODO : Add function here
 			print("Not Now Selcted")
 			dialog.destroy()
+
+	def on_file_clicked(self, button):
+
+		dialog = Gtk.FileChooserDialog("Please choose a file", self.window,
+        	Gtk.FileChooserAction.OPEN,
+        	(Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
+        		Gtk.STOCK_OPEN, Gtk.ResponseType.OK))
+		response = dialog.run()
+		if response == Gtk.ResponseType.OK:
+			print("Open clicked")
+			print("File selected: " + dialog.get_filename())
+		elif response == Gtk.ResponseType.CANCEL:
+			print("Cancel clicked")
+
+		dialog.destroy()
+
+
 
 
 
