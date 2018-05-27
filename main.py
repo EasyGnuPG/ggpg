@@ -143,8 +143,12 @@ class MainApp(Gtk.Application):
 		menubar = builder.get_object('menubar')
 		self.set_menubar(menubar)
 
+		#Key Check
+
 		self.window.add(window_split)
 		self.window.show_all()
+		self.expired_key_checks()
+		self.is_expiring_key_check()
 
 	def on_shutdown(self, data=None):
 		#Add cleanups like file saves, logs, errors etc
@@ -160,10 +164,46 @@ class MainApp(Gtk.Application):
 			item_iter = model.append(["Contact " + str(item)])
 
 	def populate_keys(self, model):
-		#Shift to separate package later
+		#TODO : link to key_checks
 		model.clear()
 		for item in range(1,11):
 			item_iter = model.append(["Key " + str(item)])
+
+	def expired_key_checks(self):
+		#Expired Keys check
+		#TODO : Change this to a loop
+		dialog = Gtk.MessageDialog(self.window, 0, Gtk.MessageType.WARNING,
+			Gtk.ButtonsType.NONE, "EasyGnuPG")
+		dialog.format_secondary_text("Your key has expried on 26/5/2018.")
+		dialog.add_button("Renew Key", 200)
+		dialog.add_button("Delete Key", 300)
+		response = dialog.run()
+		if response == 200:
+			#TODO : Add function here
+			print("Renew Key Selcted")
+			dialog.destory()
+		else:
+			#TODO : Add function here
+			print("Delete Key Selcted")
+			dialog.destroy()
+
+	def is_expiring_key_check(self):
+		#Check for keys that are about to expire
+		#TODO : Merge the two checks in a single loop
+		dialog = Gtk.MessageDialog(self.window, 0, Gtk.MessageType.WARNING,
+			Gtk.ButtonsType.NONE, "EasyGnuPG")
+		dialog.format_secondary_text("Your key is due expirey on 26/5/2018.")
+		dialog.add_button("Renew Key", 200)
+		dialog.add_button("Not Now", 300)
+		response = dialog.run()
+		if response == 200:
+			#TODO : Add function here
+			print("Renew Key Selcted")
+			dialog.destory()
+		else:
+			#TODO : Add function here
+			print("Not Now Selcted")
+			dialog.destroy()
 
 
 
